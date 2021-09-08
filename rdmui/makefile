@@ -1,0 +1,1 @@
+helm install rdmui bitnami/nginx --values values.yaml -n rdm

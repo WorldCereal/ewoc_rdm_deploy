@@ -1,0 +1,24 @@
+image:
+  registry: hfjcmwgl.gra5.container-registry.ovh.net
+  repository: world-cereal/rdm/web
+  tag: stable
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - harborcs
+
+containerPorts:
+  http: 80
+
+service.type: ClusterIP
+service.port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: kong
+  hostname: rdmui.dev.worldcereal.csgroup.space    
+  hosts:
+    - host: rdmui.dev.worldcereal.csgroup.space
+      paths:
+        - path: /
+          pathType: ImplementationSpecific

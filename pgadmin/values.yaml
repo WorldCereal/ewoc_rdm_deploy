@@ -1,0 +1,23 @@
+ingress:
+  ## If true, pgAdmin Ingress will be created
+  ##
+  enabled: true
+
+  ## pgAdmin Ingress annotations
+  ##
+  annotations:
+    kubernetes.io/ingress.class: kong
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+  ## pgAdmin Ingress hostnames with optional path
+  ## Must be provided if Ingress is enabled
+  hosts:
+    - host: rdmdb.dev.worldcereal.csgroup.space
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+env:
+  email: ewoc@worldcereal.com
+  password: SuperSecret
