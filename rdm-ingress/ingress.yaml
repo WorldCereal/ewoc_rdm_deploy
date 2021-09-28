@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: kong
+  name: rdm-ingress
+  namespace: rdm
+spec:
+  rules:
+  - host: rdm.dev.worldcereal.csgroup.space
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: rdmui-nginx
+          servicePort: 80
+      - path: /data/*
+        backend:
+          serviceName: rdmapi
+          servicePort: 80

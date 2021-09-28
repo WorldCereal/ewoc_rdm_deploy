@@ -2,23 +2,26 @@ image:
   registry: hfjcmwgl.gra5.container-registry.ovh.net
   repository: world-cereal/rdm/web
   tag: stable
-  pullPolicy: IfNotPresent
+  pullPolicy: "Always"
   pullSecrets:
     - harborcs
+
+extraEnvVars:
+  - name: "NEXT_PUBLIC_API_BASE_URL"
+    value: "http://rdm.dev.worldcereal.csgroup.space/data"
+  - name: "NEXT_TELEMETRY_DISABLED"
+    value: "1"   
 
 containerPorts:
   http: 80
 
-service.type: ClusterIP
-service.port: 80
+service:
+  ## @param service.type Service type
+  ##
+  type: ClusterIP
+  ## @param service.port Service HTTP port
+  ##
+  port: 80
 
 ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: kong
-  hostname: rdmui.dev.worldcereal.csgroup.space    
-  hosts:
-    - host: rdmui.dev.worldcereal.csgroup.space
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+  enabled: false

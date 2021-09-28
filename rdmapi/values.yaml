@@ -8,7 +8,7 @@ image:
   registry: hfjcmwgl.gra5.container-registry.ovh.net
   repository: hfjcmwgl.gra5.container-registry.ovh.net/world-cereal/rdm/restapi
   tag: stable
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   pullSecrets:
     - harborcs
 
@@ -18,7 +18,14 @@ imagePullSecrets:
 env: 
    "ConnectionStrings__Default": "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"
    "UserDatasetConfig__TempFolder": "/data/store"
-   "UserDatasetConfig__DatasetBackupFolder": "/data/store" 
+   "UserDatasetConfig__DatasetBackupFolder": "/data/store"
+   "App__CorsOrigins": "http://rdm.dev.worldcereal.csgroup.space/,http://rdm.dev.worldcereal.csgroup.space,http://rdmapi.dev.worldcereal.csgroup.space"
+   "App__SelfUrl": "http://rdmapi.dev.worldcereal.csgroup.space"
+   "App__RedirectAllowedUrls": "http://rdm.dev.worldcereal.csgroup.space/data/,http://rdm.dev.worldcereal.csgroup.space/data,http://rdmapi.dev.worldcereal.csgroup.space"
+   "EwocConfig__AuthEnabled": "true"
+   "EwocConfig__UserIdKey": "X-User-Info"
+   "EwocConfig__UserGroupKey": "X-User-Group"
+   "EwocConfig__UserNameKey": "X-Username"
 
 persistence:
   enabled: true
@@ -52,7 +59,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: "rdmapiserviceaccount"
 
 podAnnotations: {}
 

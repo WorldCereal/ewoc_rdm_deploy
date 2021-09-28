@@ -9,7 +9,7 @@ spec:
       containers:
         - name: rdm-db-migrator-container
           image: hfjcmwgl.gra5.container-registry.ovh.net/world-cereal/rdm/dbmigrator:stable
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: "ConnectionStrings__Default"
               value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"

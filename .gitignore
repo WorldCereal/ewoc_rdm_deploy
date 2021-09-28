@@ -14,6 +14,7 @@ BenchmarkDotNet.Artifacts/
 src/SignalR/clients/**/dist/
 modules/
 Data/
+sshkey/
 
 # File extensions
 *.aps
