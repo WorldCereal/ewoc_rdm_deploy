@@ -3,6 +3,11 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: kong
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    konghq.com/protocols: https
+    konghq.com/https-redirect-status-code: "301"
   name: rdm-ingress
   namespace: rdm
 spec:
