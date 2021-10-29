@@ -12,7 +12,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: "ConnectionStrings__Default"
-              value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"
+              value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=300;CommandTimeout=150;"
       restartPolicy: Never
       imagePullSecrets:
         - name: harborcs

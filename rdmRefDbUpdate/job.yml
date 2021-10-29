@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rdm-refdb-updator
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      containers:
+        - name: rdm-refdb-updator-container
+          image: hfjcmwgl.gra5.container-registry.ovh.net/world-cereal/rdm/refdbupdate:stable
+          imagePullPolicy: Always
+          env:
+            - name: "ConnectionStrings__Default"
+              value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"
+            - name: "TempFolder"
+              value: "/tempdata"
+          volumeMounts:
+            - name: data
+              mountPath: /tempdata
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: harborcs
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: restapi-pvc

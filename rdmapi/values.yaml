@@ -95,7 +95,7 @@ service:
   #      - chart-example.local
 
 ingress:
-  enabled: true
+  enabled: false
   annotations:
     kubernetes.io/ingress.class: kong 
   hosts:
