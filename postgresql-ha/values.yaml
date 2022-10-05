@@ -1,0 +1,34 @@
+nameOverride: rdmpgsql
+
+pgpool:
+  # Create pods on System nodes
+  nodeSelector: 
+    system-tag: world-cereal-system
+
+postgresql:
+  existingSecret: rdm-db
+  username: postgres
+  initdbScripts:
+    db.sql: |
+      CREATE DATABASE ewocmaster OWNER postgres;
+      CREATE DATABASE referencedb OWNER postgres;
+      CREATE DATABASE communitydb OWNER postgres;
+    postgis.sh: |
+      #!/bin/sh
+      export PGPASSWORD=$POSTGRES_PASSWORD
+      psql ewocmaster -U postgres -c "CREATE EXTENSION postgis";     
+      psql referencedb -U postgres -c "CREATE EXTENSION postgis";
+      psql communitydb -U postgres -c "CREATE EXTENSION postgis";
+
+  # Create pods on System nodes
+  nodeSelector: 
+    system-tag: world-cereal-system
+  podAntiAffinitypreset: hard
+  replicaCount: 3
+
+volumePermissions:
+  enabled: true
+
+persistence:
+  enabled: true
+#  size: 200Gi # PROD

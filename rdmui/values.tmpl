@@ -1,19 +1,26 @@
 image:
-  registry: hfjcmwgl.gra5.container-registry.ovh.net
+  registry: CS_REGISTRY
   repository: world-cereal/rdm/web
   tag: stable
-  pullPolicy: "Always"
+  pullPolicy: "IfNotPresent"
   pullSecrets:
-    - harborcs
+    - aws-registry
 
 extraEnvVars:
   - name: "NEXT_PUBLIC_API_BASE_URL"
-    value: "http://rdm.dev.worldcereal.csgroup.space/data"
+    value: "http://rdm.HOSTNAME/data"
   - name: "NEXT_TELEMETRY_DISABLED"
     value: "1"   
 
 containerPorts:
   http: 80
+
+replicaCount: 3
+
+nodeSelector:
+  system-tag: world-cereal-system
+
+podAntiAffinityPreset: hard
 
 service:
   ## @param service.type Service type
@@ -25,3 +32,5 @@ service:
 
 ingress:
   enabled: false
+
+

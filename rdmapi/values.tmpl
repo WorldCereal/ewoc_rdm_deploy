@@ -1,0 +1,86 @@
+# Default values for rdmapi.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+#replicaCount: 1
+
+image:
+  registry: CS_REGISTRY
+  repository: CS_REGISTRY/world-cereal/rdm/restapi
+  tag: stable
+  pullPolicy: Always
+  pullSecrets:
+    - aws-registry
+
+imagePullSecrets:
+  - name: aws-registry
+
+env: 
+#   "ConnectionStrings__Default": "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"
+#   "ConnectionStrings__Default": "Host=rdmpgsqlha-postgresql;Port=5432;database=ewocmaster;username=postgres;password=s0XWSE8RdN0BZKXp6mnR0vtdNXYerTE7;Timeout=300;CommandTimeout=150;"
+   "UserDatasetConfig__TempFolder": "/data/store"
+   "UserDatasetConfig__DatasetBackupFolder": "/data/store"
+#   "App__CorsOrigins": "http://rdm.dev.worldcereal.csgroup.space/,http://rdm.dev.worldcereal.csgroup.space,http://rdmapi.dev.worldcereal.csgroup.space"
+#   "App__SelfUrl": "http://rdmapi.dev.worldcereal.csgroup.space"
+#   "App__RedirectAllowedUrls": "http://rdm.dev.worldcereal.csgroup.space/data/,http://rdm.dev.worldcereal.csgroup.space/data,http://rdmapi.dev.worldcereal.csgroup.space"
+   "EwocConfig__AuthEnabled": "true"
+   "EwocConfig__UserIdKey": "X-User-Info"
+   "EwocConfig__UserGroupKey": "X-User-Group"
+   "EwocConfig__UserNameKey": "X-Username"
+
+# Use secret to import pg Connection string
+pgConnectionString:
+  enabled: true
+  secretName: rdm-conn-string-db
+  secretKey: ewocmaster
+ 
+persistence:
+  enabled: true
+  mountPath: /data/store
+  existingClaim: restapi-pvc
+  size: '5Gi'
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 10
+  failureThreshold: 6
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  timeoutSeconds: 3
+  periodSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1    
+
+serviceAccount:
+  create: true
+  name: "rdmapiserviceaccount"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+
+nodeSelector:
+  system-tag: world-cereal-system
+
+replicas: 1
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchExpressions:
+        - key: app.kubernetes.io/name 
+          operator: In
+          values:
+          - rdmapi
+      topologyKey: kubernetes.io/hostname

@@ -8,20 +8,25 @@ spec:
     spec:
       containers:
         - name: rdm-refdb-updator-container
-          image: hfjcmwgl.gra5.container-registry.ovh.net/world-cereal/rdm/refdbupdate:stable
-          imagePullPolicy: Always
+          image: CS_REGISTRY/world-cereal/rdm/refdbupdate:stable
+          imagePullPolicy: IfNotPresent
           env:
-            - name: "ConnectionStrings__Default"
-              value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"
             - name: "TempFolder"
               value: "/tempdata"
+            - name: ConnectionStrings__Default
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-conn-string-db
+                  key: ewocmaster
           volumeMounts:
             - name: data
               mountPath: /tempdata
       restartPolicy: Never
       imagePullSecrets:
-        - name: harborcs
+        - name: aws-registry
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: refdb-pvc
+      nodeSelector:
+        system-tag: world-cereal-system

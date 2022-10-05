@@ -1,11 +1,13 @@
+{{- if and .Values.persistence.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: refdb-pvc
+  name: restapi-pvc
   namespace: rdm
 spec:
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: "{{ .Values.persistence.size }}"
+{{- end }}

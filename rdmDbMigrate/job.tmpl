@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rdm-db-migrator
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      containers:
+        - name: rdm-db-migrator-container
+          image: CS_REGISTRY/world-cereal/rdm/dbmigrator:stable
+          imagePullPolicy: IfNotPresent
+          env:
+            # - name: "ConnectionStrings__Default"
+            #   value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=300;CommandTimeout=150;"
+            - name: ConnectionStrings__Default
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-conn-string-db
+                  key: ewocmaster
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: aws-registry
+      nodeSelector:
+        system-tag: world-cereal-system

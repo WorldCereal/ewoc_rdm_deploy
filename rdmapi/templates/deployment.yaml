@@ -39,6 +39,13 @@ spec:
            - name: {{ $k | quote }}
              value: {{ $v | quote }}
         {{- end }}
+          {{- if .Values.pgConnectionString.enabled }}
+           - name: ConnectionStrings__Default
+             valueFrom:
+              secretKeyRef:
+                name: {{ .Values.pgConnectionString.secretName }}
+                key: {{ .Values.pgConnectionString.secretKey }}
+          {{- end }}
           volumeMounts:           
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
