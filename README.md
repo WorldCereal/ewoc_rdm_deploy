@@ -19,7 +19,7 @@ This document explain how to deploy the RDM component in the World Cereal contex
 
 - Worldcereal cluster is deployed.
 - Namespace rdm already exists in Worldcereal cluster.
-- The secret aws-registry (image pull secret) is setted for rdm namespace.
+- The secret aws-registry (image pull secret) is set for rdm namespace.
 
 ## Init
 To deploy the rdm component, the first action is to set all parameters in the `export-env.sh` file.
