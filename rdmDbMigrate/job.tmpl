@@ -16,6 +16,16 @@ spec:
                 secretKeyRef:
                   name: rdm-conn-string-db
                   key: ewocmaster
+            - name: ConnectionStrings__RefDb
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-conn-string-db
+                  key: referencedb
+            - name: ConnectionStrings__ComDb
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-conn-string-db
+                  key: communitydb
       restartPolicy: Never
       imagePullSecrets:
         - name: aws-registry

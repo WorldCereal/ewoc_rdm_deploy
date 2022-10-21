@@ -83,8 +83,6 @@ make jobrefdbupdate
 This jobs is probably take 1 or 2 hours to be completed.
 It is used to initialize reference data module by creating DBs in the postgresql pods.
 
-**TODO If not fixed describe here steps to change sql connection string in the pgadmin in order to get db created in the pg**
-
 ## rdmapi
 Create back end pods : 
 ```
