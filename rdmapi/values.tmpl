@@ -16,8 +16,6 @@ imagePullSecrets:
   - name: aws-registry
 
 env: 
-#   "ConnectionStrings__Default": "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=120;CommandTimeout=60;"
-#   "ConnectionStrings__Default": "Host=rdmpgsqlha-postgresql;Port=5432;database=ewocmaster;username=postgres;password=s0XWSE8RdN0BZKXp6mnR0vtdNXYerTE7;Timeout=300;CommandTimeout=150;"
    "UserDatasetConfig__TempFolder": "/data/store"
    "UserDatasetConfig__DatasetBackupFolder": "/data/store"
 #   "App__CorsOrigins": "http://rdm.dev.worldcereal.csgroup.space/,http://rdm.dev.worldcereal.csgroup.space,http://rdmapi.dev.worldcereal.csgroup.space"
@@ -30,15 +28,15 @@ env:
 
 # Use secret to import pg Connection string
 pgConnectionString:
-  enabled: true
   secretName: rdm-conn-string-db
   secretKey: ewocmaster
- 
+
+s3ConnectionString:
+  secretName: rdm-s3
+
 persistence:
   enabled: true
   mountPath: /data/store
-  existingClaim: restapi-pvc
-  size: '5Gi'
 
 livenessProbe:
   enabled: true
@@ -73,7 +71,7 @@ autoscaling:
 nodeSelector:
   system-tag: world-cereal-system
 
-replicas: 1
+replicas: 3
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:

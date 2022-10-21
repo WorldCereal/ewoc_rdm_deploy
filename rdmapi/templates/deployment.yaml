@@ -39,13 +39,31 @@ spec:
            - name: {{ $k | quote }}
              value: {{ $v | quote }}
         {{- end }}
-          {{- if .Values.pgConnectionString.enabled }}
            - name: ConnectionStrings__Default
              valueFrom:
               secretKeyRef:
                 name: {{ .Values.pgConnectionString.secretName }}
                 key: {{ .Values.pgConnectionString.secretKey }}
-          {{- end }}
+           - name: S3Config___AccessKey
+             valueFrom:
+              secretKeyRef:
+                name: {{ .Values.s3ConnectionString.secretName }}
+                key: "S3Config___AccessKey"
+           - name: S3Config___Secret
+             valueFrom:
+              secretKeyRef:
+                name: {{ .Values.s3ConnectionString.secretName }}
+                key: "S3Config___Secret"
+           - name: S3Config___Region
+             valueFrom:
+              secretKeyRef:
+                name: {{ .Values.s3ConnectionString.secretName }}
+                key: "S3Config___Region"
+           - name: S3Config___ServiceName
+             valueFrom:
+              secretKeyRef:
+                name: {{ .Values.s3ConnectionString.secretName }}
+                key: "S3Config___ServiceName"
           volumeMounts:           
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
@@ -84,12 +102,6 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }} 
-
-{{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
       volumes:
         - name: data
-          persistentVolumeClaim:
-          {{- with .Values.persistence.existingClaim }}
-            claimName: {{ tpl . $ }}
-          {{- end }}
- {{- end }}
+          emptyDir: {}

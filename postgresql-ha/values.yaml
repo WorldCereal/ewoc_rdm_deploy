@@ -5,6 +5,10 @@ pgpool:
   nodeSelector: 
     system-tag: world-cereal-system
 
+  podAntiAffinityPreset: hard
+  replicaCount: 3
+  connectionLifeTime: 120
+
 postgresql:
   existingSecret: rdm-db
   username: postgres
@@ -31,4 +35,8 @@ volumePermissions:
 
 persistence:
   enabled: true
-#  size: 200Gi # PROD
+  size: 200Gi # PROD
+
+  extendedConf: |
+    max_connections = 512
+    shared_buffers = 80MB

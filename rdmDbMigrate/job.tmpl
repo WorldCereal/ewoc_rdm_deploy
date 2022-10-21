@@ -11,8 +11,6 @@ spec:
           image: CS_REGISTRY/world-cereal/rdm/dbmigrator:stable
           imagePullPolicy: IfNotPresent
           env:
-            # - name: "ConnectionStrings__Default"
-            #   value: "Host=rdm-postgresql;Port=5432;database=ewocmaster;username=postgres;password=postgres;Timeout=300;CommandTimeout=150;"
             - name: ConnectionStrings__Default
               valueFrom:
                 secretKeyRef:
