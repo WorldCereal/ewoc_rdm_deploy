@@ -36,6 +36,7 @@ All variable regarding S3 *MUST* be setted because it's used to generate rdm-s3 
 | S3_SECRET                 | S3 secret for accessing refrence data from.     |
 | S3_REGION                 | S3 region                                       |
 | S3_SERVICE_NAME           | S3 service                                      |
+| S3_BUCKET_URL             | S3 bucket url (used in rdmdbmigrate job)        |
 
 When all variable are set, you can go at root repository level and run
 `source export-env.sh && make init`.
@@ -74,6 +75,9 @@ Play the following command to run the job:
 ```
 make jobdbmigrate
 ```
+This job initialize the three databases, ewocmaster referencedb communitydb.
+It uses the S3_BUCKET_URL to pull repository data from s3.
+
 
 ## jobrefdbupdate
 Once the jobdbmigrate is completed, run :

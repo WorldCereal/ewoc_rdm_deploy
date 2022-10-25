@@ -26,6 +26,8 @@ spec:
                 secretKeyRef:
                   name: rdm-conn-string-db
                   key: communitydb
+            - name: BlobBaseUrl
+              value: https://S3_BUCKET_URL
       restartPolicy: Never
       imagePullSecrets:
         - name: aws-registry

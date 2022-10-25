@@ -21,8 +21,8 @@ pgadmin:
 jobdbmigrate:
 	@test -n "$(CLUSTER_RDM_ENV_LOADED)" || { echo 'The env variables should be source before run this script' && exit 1; }
 
-	@sed "s:CS_REGISTRY:$(CS_REGISTRY):" rdmDbMigrate/job.tmpl > rdmDbMigrateJob.yaml
-	kubectl apply -f rdmDbMigrateJob.yaml -n rdm
+	sed "s:CS_REGISTRY:$(CS_REGISTRY):;s:S3_BUCKET_URL:$(S3_BUCKET_URL):" rdmDbMigrate/job.tmpl > rdmDbMigrateJob.yaml
+	#kubectl apply -f rdmDbMigrateJob.yaml -n rdm
 
 jobrefdbupdate: 
 	@test -n "$(CLUSTER_RDM_ENV_LOADED)" || { echo 'The env variables should be source before run this script' && exit 1; }
