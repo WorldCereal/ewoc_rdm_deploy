@@ -44,26 +44,6 @@ spec:
               secretKeyRef:
                 name: {{ .Values.pgConnectionString.secretName }}
                 key: {{ .Values.pgConnectionString.secretKey }}
-           - name: S3Config___AccessKey
-             valueFrom:
-              secretKeyRef:
-                name: {{ .Values.s3ConnectionString.secretName }}
-                key: "S3Config___AccessKey"
-           - name: S3Config___Secret
-             valueFrom:
-              secretKeyRef:
-                name: {{ .Values.s3ConnectionString.secretName }}
-                key: "S3Config___Secret"
-           - name: S3Config___Region
-             valueFrom:
-              secretKeyRef:
-                name: {{ .Values.s3ConnectionString.secretName }}
-                key: "S3Config___Region"
-           - name: S3Config___ServiceName
-             valueFrom:
-              secretKeyRef:
-                name: {{ .Values.s3ConnectionString.secretName }}
-                key: "S3Config___ServiceName"
           volumeMounts:           
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}

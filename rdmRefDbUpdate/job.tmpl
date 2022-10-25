@@ -18,6 +18,26 @@ spec:
                 secretKeyRef:
                   name: rdm-conn-string-db
                   key: ewocmaster
+            - name: S3Config___AccessKey
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-s3
+                  key: "S3Config___AccessKey"
+            - name: S3Config___Secret
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-s3
+                  key: "S3Config___Secret"
+            - name: S3Config___Region
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-s3
+                  key: "S3Config___Region"
+            - name: S3Config___ServiceName
+              valueFrom:
+                secretKeyRef:
+                  name: rdm-s3
+                  key: "S3Config___ServiceName"
           volumeMounts:
             - name: data
               mountPath: /tempdata
