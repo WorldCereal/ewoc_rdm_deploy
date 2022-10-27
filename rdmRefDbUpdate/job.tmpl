@@ -9,7 +9,7 @@ spec:
       containers:
         - name: rdm-refdb-updator-container
           image: CS_REGISTRY/world-cereal/rdm/refdbupdate:stable
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: "TempFolder"
               value: "/tempdata"
@@ -38,6 +38,8 @@ spec:
                 secretKeyRef:
                   name: rdm-s3
                   key: "S3Config___ServiceName"
+            - name: BlobBaseUrl
+              value: https://S3_BUCKET_URL
           volumeMounts:
             - name: data
               mountPath: /tempdata

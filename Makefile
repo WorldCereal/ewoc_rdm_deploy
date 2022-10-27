@@ -26,7 +26,7 @@ jobdbmigrate:
 
 jobrefdbupdate: 
 	@test -n "$(CLUSTER_RDM_ENV_LOADED)" || { echo 'The env variables should be source before run this script' && exit 1; }
-	@sed "s:CS_REGISTRY:$(CS_REGISTRY):" rdmRefDbUpdate/job.tmpl > rdmRefDbUpdate.yaml
+	@sed "s:CS_REGISTRY:$(CS_REGISTRY):;s:S3_BUCKET_URL:$(S3_BUCKET_URL):" rdmRefDbUpdate/job.tmpl > rdmRefDbUpdate.yaml
 
 	kubectl apply -f rdmRefDbUpdate/refdbpvc.yaml
 	kubectl apply -f rdmRefDbUpdate.yaml -n rdm

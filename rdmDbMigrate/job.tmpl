@@ -9,7 +9,7 @@ spec:
       containers:
         - name: rdm-db-migrator-container
           image: CS_REGISTRY/world-cereal/rdm/dbmigrator:stable
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             - name: ConnectionStrings__Default
               valueFrom:
