@@ -30,6 +30,16 @@ postgresql:
   podAntiAffinitypreset: hard
   replicaCount: 3
 
+  # Cause error in data replication when one pod crashes
+  livenessProbe:
+    enabled: false
+
+  readinessProbe:
+    enabled: false
+
+  startupProbe:
+    enabled: false
+
 volumePermissions:
   enabled: true
 

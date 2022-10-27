@@ -51,6 +51,8 @@ This script is going to create all secret in the rdm namespace.
 | pgadmin                   | Generate password for pgadmin UI                 |
 | rdm-S3                    | Generate S3 credential for rdmapi S3 connection  |
 
+**NB: When database is recreated/redpeloyed, all the pods must be redeployed, because each pods updates the structure of the databases**
+
 ## Postgresql-Ha
 All databases from the RDM context stored in postgresql-HA.
 All the passwords have been generated in `sys-init.sh` step.
